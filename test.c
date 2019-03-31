@@ -75,18 +75,18 @@ void saveList(struct node *head ){
 	struct node *current;
 	current = malloc(sizeof(struct node));
 	current = head;
-
+	char outputstr[50];
 	if((ifp = fopen(OUTPUTFILE, "w")) == NULL){
 		printf("Error with outputfile \n" );
 	} else {
+		
 		while(current != NULL){
-
-			char outputstr[50];
-			strcpy(outputstr, "");
+			memset(outputstr, 0, 50);
+			
 
 			strcpy(outputstr,current->name);
 			strcpy(outputstr, ";");
-			
+
 			strcpy(outputstr, current->amount);
 			printf("%s",current->name);
 		    fputs(outputstr, ifp);
