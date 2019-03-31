@@ -3,7 +3,7 @@
 #include <string.h>
 
 #define INPUTFILE "accountHistory.txt" 
-#define OUTPUTFILE "accountHistory1.txt" 
+#define OUTPUTFILE "accountHistory.txt" 
 
 struct node {
 		char name[50];
@@ -70,6 +70,33 @@ return 0;
 }
 
 
+void saveList(struct node *head ){
+	FILE *ifp;
+	struct node *current;
+	current = malloc(sizeof(struct node));
+	current = head;
+
+	if((ifp = fopen(OUTPUTFILE, "w")) == NULL){
+		printf("Error with outputfile \n" );
+	} else {
+		while(current != NULL){
+
+			char outputstr[50];
+			strcpy(outputstr, "");
+
+			strcpy(outputstr,current->name);
+			strcpy(outputstr, ";");
+			
+			strcpy(outputstr, current->amount);
+			printf("%s",current->name);
+		    fputs(outputstr, ifp);
+
+			current = current->next;
+		}
+		fclose(ifp);
+	}
+}
+
 
 int main(void) {
 
@@ -85,6 +112,8 @@ int main(void) {
 	}
 	addEntry(head, "Alex", "55555");
 	
+	saveList(head);
+
 	printf("\nSCANNING THE LIST\n");
 	temp = head;
 	int i = 0;
